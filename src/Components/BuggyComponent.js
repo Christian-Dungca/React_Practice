@@ -17,7 +17,7 @@ class BuggyComponent extends React.Component {
         if (this.state.counter === 1) {
             throw new Error('I crashed!')
         }
-        return <h1 onClick={this.handleClick}>{this.state.counter}</h1>
+        return <h2 onClick={this.handleClick}> I will throw an eror if you click on me! {this.state.counter}</h2>
     }
 }
 
