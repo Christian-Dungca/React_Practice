@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Suspense } from 'react';
 import './App.css';
+import ErrorBoundary from './Components/ErrorBoundary'
+import BuggyComponent from './Components/BuggyComponent'
+
+/** 
+ * * React.lazy function lets you render a dynamic import as a regular component 
+ * * should be rendered in a Suspense component 
+ */
+
+const HeaderComponent = React.lazy(() => import('./Components/Header'));
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+      <div>
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading...</div>}>
+            <HeaderComponent />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <BuggyComponent />
+        </ErrorBoundary>
+      </div>
+    );
 }
 
 export default App;
